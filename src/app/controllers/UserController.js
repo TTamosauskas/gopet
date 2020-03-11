@@ -2,43 +2,37 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 class UserController {
-  // async store(req, res) {
-  //   const schema = Yup.object().shape({
-  //     name: Yup.string().required(),
-  //     petname: Yup.string().required(),
-  //     email: Yup.string()
-  //       .email()
-  //       .required(),
-  //     password: Yup.string()
-  //       .required()
-  //       .min(5),
-  //   });
-
-  //   if (!(await schema.isValid(req.body))) {
-  //     return res.status(400).json({ error: 'Validation fails.' });
-  //   }
-
-  //   const userExists = await User.findOne({ where: { email: req.body.email } });
-
-  //   if (userExists) {
-  //     return res.status(400).json({ error: 'User already exists.' });
-  //   }
-
-  //   const { id, name, petname, email, provider } = await User.create(req.body);
-
-  //   return res.json({
-  //     id,
-  //     name,
-  //     petname,
-  //     email,
-  //     provider,
-  //   });
-  // }
-
   async store(req, res) {
-    const { name, petname, email, password } = req.body;
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      petname: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string()
+        .required()
+        .min(5),
+    });
 
-    return res.json(req.body);
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
+    const userExists = await User.findOne({ where: { email: req.body.email } });
+
+    if (userExists) {
+      return res.status(400).json({ error: 'User already exists.' });
+    }
+
+    const { id, name, petname, email, provider } = await User.create(req.body);
+
+    return res.json({
+      id,
+      name,
+      petname,
+      email,
+      provider,
+    });
   }
 
   async update(req, res) {
