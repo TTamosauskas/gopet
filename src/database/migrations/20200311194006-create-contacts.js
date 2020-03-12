@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
       },
       telefone: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       numero: {

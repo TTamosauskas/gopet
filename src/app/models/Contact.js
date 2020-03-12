@@ -6,12 +6,12 @@ class Contact extends Model {
     super.init(
       {
         rua: Sequelize.STRING,
-        telefone: Sequelize.STRING,
-        numero: Sequelize.STRING,
-        complemento: Sequelize.STRING,
+        telefone: Sequelize.INTEGER,
+        numero: Sequelize.INTEGER,
+        complemento: Sequelize.TEXT,
         estado: Sequelize.STRING,
         cidade: Sequelize.STRING,
-        cep: Sequelize.STRING,
+        cep: Sequelize.INTEGER,
       },
       {
         sequelize,

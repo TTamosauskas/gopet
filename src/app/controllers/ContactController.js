@@ -5,12 +5,12 @@ class ContactController {
   async store(req, res) {
     const schema = Yup.object().shape({
       rua: Yup.string().required(),
-      telefone: Yup.string().required(),
-      numero: Yup.string().required(),
-      complemento: Yup.string(),
+      telefone: Yup.integer().required(),
+      numero: Yup.integer().required(),
+      complemento: Yup.text(),
       estado: Yup.string().required(),
       cidade: Yup.string().required(),
-      cep: Yup.string().required(),
+      cep: Yup.integer().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -45,12 +45,12 @@ class ContactController {
   async update(req, res) {
     const schema = Yup.object().shape({
       rua: Yup.string().required(),
-      telefone: Yup.string().required(),
-      numero: Yup.string().required(),
-      complemento: Yup.string(),
+      telefone: Yup.integer().required(),
+      numero: Yup.integer().required(),
+      complemento: Yup.text(),
       estado: Yup.string().required(),
       cidade: Yup.string().required(),
-      cep: Yup.string().required(),
+      cep: Yup.integer().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
