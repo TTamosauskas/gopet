@@ -5,12 +5,12 @@ class ContactController {
   async store(req, res) {
     const schema = Yup.object().shape({
       rua: Yup.string().required(),
-      telefone: Yup.integer().required(),
-      numero: Yup.integer().required(),
-      complemento: Yup.text(),
+      telefone: Yup.number().required(),
+      numero: Yup.number().required(),
+      complemento: Yup.string(),
       estado: Yup.string().required(),
       cidade: Yup.string().required(),
-      cep: Yup.integer().required(),
+      cep: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -45,20 +45,23 @@ class ContactController {
   async update(req, res) {
     const schema = Yup.object().shape({
       rua: Yup.string().required(),
-      telefone: Yup.integer().required(),
-      numero: Yup.integer().required(),
-      complemento: Yup.text(),
+      telefone: Yup.number().required(),
+      numero: Yup.number().required(),
+      complemento: Yup.string(),
       estado: Yup.string().required(),
       cidade: Yup.string().required(),
-      cep: Yup.integer().required(),
+      cep: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
+    const { id } = req.body;
+
+    const contato = await Contact.findByPk(id);
+
     const {
-      id,
       rua,
       telefone,
       numero,
@@ -67,7 +70,7 @@ class ContactController {
       cidade,
       cep,
       provider,
-    } = await Contact.update(req.body);
+    } = await contato.update(req.body);
 
     return res.json({
       id,
